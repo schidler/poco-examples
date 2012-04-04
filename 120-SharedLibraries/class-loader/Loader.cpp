@@ -6,6 +6,8 @@
 typedef Poco::ClassLoader<Plugin> PluginLoader;
 typedef Poco::Manifest<Plugin> PluginManifest;
 
+void iterateLoader(const PluginLoader &loader);
+
 int main(int argc, char **argv)
 {
 	PluginLoader loader;
@@ -14,6 +16,15 @@ int main(int argc, char **argv)
 
 	loader.loadLibrary(libraryName);
 
+	iterateLoader(loader);
+
+	loader.unloadLibrary(libraryName);
+
+	return 0;
+}
+
+void iterateLoader(const PluginLoader &loader)
+{
 	PluginLoader::Iterator it(loader.begin());
 	PluginLoader::Iterator end(loader.end());
 	for ( ; it != end; ++it)
@@ -27,8 +38,4 @@ int main(int argc, char **argv)
 			delete pPlugin;
 		}
 	}
-
-	loader.unloadLibrary(libraryName);
-
-	return 0;
 }
