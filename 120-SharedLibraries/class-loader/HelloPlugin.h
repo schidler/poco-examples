@@ -6,6 +6,8 @@
 class HelloPlugin : public Plugin
 {
 public:
+	virtual ~HelloPlugin();
+
 	virtual void exec();
 };
 
